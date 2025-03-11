@@ -1,33 +1,29 @@
 pipeline {
-    agent any
-
+    agent any  // Runs on any available agent
+    
     stages {
         stage('Build') {
             steps {
-                
-                sh 'g++ hello.cpp -o hello' // Compile C++ file
-                
+                sh 'g++ non_existing_file.cpp -o hello' // This will cause an error
             }
         }
 
         stage('Test') {
             steps {
-                script {
-                    sh './hello'  // Run the compiled executable
-                }
+                sh './hello'
             }
         }
 
         stage('Deploy') {
             steps {
-                echo 'Deploying application...'
+                echo 'Deploying the application...'
             }
         }
     }
 
     post {
         failure {
-            echo 'Pipeline failed'
+            echo 'Pipeline Failed!'
         }
     }
 }
